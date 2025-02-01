@@ -1,0 +1,48 @@
+.crossword-board-container {
+    position: relative;
+    background: #FFFFFF;
+    display: flex;
+    justify-content: center; /* Horizontally centers */
+    align-items: center;
+}
+  
+.crossword-board {
+    position: absolute;
+    background: transparent;
+    display: grid;
+    border: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    gap: 1px;
+    width: 550px;
+    height: 500px;
+    grid-template: repeat(9, 11.1111111%)/repeat(10, 10%);
+    top: 200px;
+}
+  
+.crossword-board__item {
+    background: #FFFFFF;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    visibility: visible;  
+    border: 0.1px solid #000000;
+    font-size: 3em;
+}
+
+.crossword-board__item--blank {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.crossword-board-num {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    font-size: 0.3em;
+    color: #000;
+    font-weight: normal;
+}
