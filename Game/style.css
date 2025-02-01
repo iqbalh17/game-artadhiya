@@ -14,11 +14,11 @@
     list-style-type: none;
     padding: 0;
     margin: 0 auto;
-    gap: 1px;
-    width: 550px;
-    height: 500px;
+    gap: 1em;
+    width: 1100px;
+    height: 1000px;
     grid-template: repeat(9, 11.1111111%)/repeat(10, 10%);
-    top: 200px;
+    top: 15em;
 }
   
 .crossword-board__item {
@@ -28,8 +28,8 @@
     font-weight: bold;
     text-transform: uppercase;
     visibility: visible;  
-    border: 0.1px solid #000000;
-    font-size: 3em;
+    border: 0.05em solid #000000;
+    font-size: 6em;
 }
 
 .crossword-board__item--blank {
@@ -40,9 +40,9 @@
 
 .crossword-board-num {
     position: absolute;
-    top: 1px;
-    left: 1px;
-    font-size: 0.3em;
-    color: #000;
+    top: 0em;
+    left: 0.05em;
+    font-size: 0.35em;
+    color: #000000;
     font-weight: normal;
 }

@@ -4,7 +4,9 @@ let isShown = new Array(10).fill(null).map(() => new Array(10).fill(0));
 let words = [
     ['karat', 0, 0, 'a'],
     ['tenang', 0, 4, 'd'],
-    ['berdiri', 1, 3, 'a']
+    ['berdiri', 1, 3, 'a'],
+    ['mahad', 3, 1, 'a'],
+    ['gila', 0, 7, 'd'],
 ];
 
 for (let i = 0; i < words.length; i++) {
@@ -62,7 +64,7 @@ document.addEventListener("keydown", function(event) {
     let num = parseInt(event.key, 10) - 1;
 
     // reveal answer
-    if (event.ctrlKey && Number.isInteger(num)) {
+    if (event.ctrlKey && Number.isInteger(num) && num < words.length) {
         event.preventDefault();
 
         for (let j = 0; j < words[num][0].length; j++) {
@@ -98,12 +100,31 @@ document.addEventListener("keydown", function(event) {
     }
 
     // wrong answer
-    if (event.ctrlKey && event.altKey && Number.isInteger(num)) {
+    if (event.ctrlKey && event.altKey && Number.isInteger(num) && num < words.length) {
+        event.preventDefault();
 
+        for (let j = 0; j < words[num][0].length; j++) {
+
+            let id = words[num][3] === 'a' 
+                    ? ["item", words[num][1] + 1, "-", words[num][2] + j + 1].join('')
+                    : ["item", words[num][1] + j + 1, "-", words[num][2] + 1].join('');
+
+            let box = document.getElementById(id);
+            let text = document.createTextNode(words[num][0][j]);
+
+            let x = words[num][3] === 'a' 
+                    ? words[num][1]
+                    : words[num][1] + j;
+            let y = words[num][3] === 'a'
+                    ? words[num][2] + j
+                    : words[num][2];
+            
+            // screen blinked red
+        }     
     }
 
     // reveal question
-    if (event.ctrlKey && event.shiftKey && Number.isInteger(num)) {
-
+    if (event.ctrlKey && event.shiftKey && Number.isInteger(num) && num < words.length) {
+        event.preventDefault();
     }
 });
