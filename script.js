@@ -1,6 +1,3 @@
-let board = new Array(10).fill(null).map(() => new Array(10).fill('-'));
-let isShown = new Array(10).fill(null).map(() => new Array(10).fill(0));
-
 let words = [
     ['karat', 0, 0, 'a'],
     ['tenang', 0, 4, 'd'],
@@ -9,17 +6,20 @@ let words = [
     ['gila', 0, 7, 'd'],
 ];
 
-for (let i = 0; i < words.length; i++) {
+let words_num = words.length;
+let max_height = Math.max(words.map(x => x[1] + x[0].length));
+let max_width = Math.max(words.map(x => x[2] + x[0].length));
 
-    if (words[i][3] === 'a') {
-        for (let j = 0; j < words[i][0].length; j++) {
-            board[words[i][1]][words[i][2]+j] = words[i][0][j];
-        }     
-    } 
-    else {
-        for (let j = 0; j < words[i][0].length; j++) {
-            board[words[i][1]+j][words[i][2]] = words[i][0][j];
-        }
+let board = new Array(10).fill(null).map(() => new Array(10).fill('-'));
+let isShown = new Array(10).fill(null).map(() => new Array(10).fill(0));
+let isRevealed = new Array(words_num).fill(0);
+
+
+for (let i = 0; i < words_num; i++) {
+    for (let j = 0; j < words[i][0].length; j++) {
+        let x = words[i][3] === 'a' ? words[i][1] : words[i][1] + j;
+        let y = words[i][3] === 'a' ? words[i][2] + j : words[i][2];
+        board[x][y] = words[i][0][j];
     }
 }
 
@@ -45,7 +45,7 @@ for (let i = 0; i < board.length; i++) {
 
             crossword_rows.appendChild(box);
 
-            for (let k = 0; k < words.length; k++) {
+            for (let k = 0; k < words_num; k++) {
                 let curx = words[k][1];
                 let cury = words[k][2];
 
@@ -64,11 +64,11 @@ document.addEventListener("keydown", function(event) {
     let num = parseInt(event.key, 10) - 1;
 
     // reveal answer
-    if (event.ctrlKey && Number.isInteger(num) && num < words.length) {
+    if (event.ctrlKey && Number.isInteger(num) && num < words_num && isRevealed[num] === 0) {
         event.preventDefault();
 
         for (let j = 0; j < words[num][0].length; j++) {
-            let delay = j * 300;
+            let delay = j * 200;
 
             setTimeout(() => {
                 let id = words[num][3] === 'a' 
@@ -100,10 +100,12 @@ document.addEventListener("keydown", function(event) {
                 }
             }, delay);
         }
+
+        isRevealed[num] = 1;
     }
 
     // wrong answer
-    if (event.ctrlKey && event.altKey && Number.isInteger(num) && num < words.length) {
+    if (event.ctrlKey && event.altKey && Number.isInteger(num) && num < words_num) {
         event.preventDefault();
 
         for (let j = 0; j < words[num][0].length; j++) {
@@ -127,7 +129,7 @@ document.addEventListener("keydown", function(event) {
     }
 
     // reveal question
-    if (event.ctrlKey && event.shiftKey && Number.isInteger(num) && num < words.length) {
+    if (event.ctrlKey && event.shiftKey && Number.isInteger(num) && num < words_num) {
         event.preventDefault();
 
         
