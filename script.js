@@ -3,15 +3,24 @@ let words = [
     ['tenang', 0, 4, 'd'],
     ['berdiri', 1, 3, 'a'],
     ['mahad', 3, 1, 'a'],
-    ['gila', 0, 7, 'd'],
+    ['silang', 0, 7, 'd'],
 ];
 
 let words_num = words.length;
-let max_height = Math.max(words.map(x => x[1] + x[0].length));
-let max_width = Math.max(words.map(x => x[2] + x[0].length));
+let max_height = 0;
+let max_width = 0;
 
-let board = new Array(10).fill(null).map(() => new Array(10).fill('-'));
-let isShown = new Array(10).fill(null).map(() => new Array(10).fill(0));
+for (let i = 0; i < words_num; i++) {
+    if (words[i][3] === 'a') max_width = Math.max(max_width, words[i][2] + words[i][0].length); 
+    else max_height = Math.max(max_height, words[i][1] + words[i][0].length);
+}
+
+let crosswordBoard = document.getElementById('crossword-board');
+crosswordBoard.style.width = `${max_width * 7}vi`;
+crosswordBoard.style.height = `${max_height * 10}vi`;
+
+let board = new Array(max_height).fill(null).map(() => new Array(max_width).fill('-'));
+let isShown = new Array(max_height).fill(null).map(() => new Array(max_width).fill(0));
 let isRevealed = new Array(words_num).fill(0);
 
 for (let i = 0; i < words_num; i++) {
@@ -68,7 +77,7 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();
 
         for (let j = 0; j < words[num][0].length; j++) {
-            let delay = j * 200;
+            let delay = j * 250;
 
             setTimeout(() => {
                 let id = words[num][3] === 'a' 
@@ -105,24 +114,15 @@ document.addEventListener("keydown", function(event) {
     }
 
     // wrong answer
-    if (event.ctrlKey && event.altKey && Number.isInteger(num) && num < words_num) {
+    if (event.altKey && event.key === "w") {
         event.preventDefault();
-
+        
     }
 
     // reveal question
 
     if (event.altKey && Number.isInteger(num) && num < words_num) {
         event.preventDefault();
-        const content = document.getElementById('content');
         
-        if (onQuestion) {
-            content.classList.add('animate-unblur'); 
-            onQuestion = false;
-        }
-        else {
-            content.classList.add('animate-blur'); 
-            onQuestion = true;
-        }
     }
 });
