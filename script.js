@@ -68,35 +68,38 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();
 
         for (let j = 0; j < words[num][0].length; j++) {
+            let delay = j * 300;
 
-            let id = words[num][3] === 'a' 
-                    ? ["item", words[num][1] + 1, "-", words[num][2] + j + 1].join('')
-                    : ["item", words[num][1] + j + 1, "-", words[num][2] + 1].join('');
+            setTimeout(() => {
+                let id = words[num][3] === 'a' 
+                        ? ["item", words[num][1] + 1, "-", words[num][2] + j + 1].join('')
+                        : ["item", words[num][1] + j + 1, "-", words[num][2] + 1].join('');
 
-            let box = document.getElementById(id);
-            let text = document.createTextNode(words[num][0][j]);
-            let element = document.createElement("div");
+                let box = document.getElementById(id);
+                let text = document.createTextNode(words[num][0][j]);
+                let element = document.createElement("div");
 
-            element.appendChild(text);
+                element.appendChild(text);
 
-            let x = words[num][3] === 'a' 
-                    ? words[num][1]
-                    : words[num][1] + j;
-            let y = words[num][3] === 'a'
-                    ? words[num][2] + j
-                    : words[num][2];
+                let x = words[num][3] === 'a' 
+                        ? words[num][1]
+                        : words[num][1] + j;
+                let y = words[num][3] === 'a'
+                        ? words[num][2] + j
+                        : words[num][2];
 
-            if (isShown[x][y] === 0) {
-                box.appendChild(element);
-                isShown[x][y] = 1;
-            }
-            else {
-                let removeId = box.children.length === 2 ? 1 : 0; 
-                box.removeChild(box.children[removeId]);
-                // animate
-                box.appendChild(element);
-            }
-        }     
+                if (isShown[x][y] === 0) {
+                    element.classList.add('animate-entrance'); 
+                    box.appendChild(element);
+                    isShown[x][y] = 1;
+                } else {
+                    let removeIndex = box.children.length === 2 ? 1 : 0;
+                    box.removeChild(box.children[removeIndex]);
+                    element.classList.add('animate-entrance'); 
+                    box.appendChild(element);
+                }
+            }, delay);
+        }
     }
 
     // wrong answer
@@ -126,5 +129,7 @@ document.addEventListener("keydown", function(event) {
     // reveal question
     if (event.ctrlKey && event.shiftKey && Number.isInteger(num) && num < words.length) {
         event.preventDefault();
+
+        
     }
 });

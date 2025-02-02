@@ -46,3 +46,18 @@
     color: #000000;
     font-weight: normal;
 }
+
+@keyframes entranceAnimation {
+    0% {
+        transform: scale(3) rotate(45deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.animate-entrance {
+    animation: entranceAnimation 0.2s ease-out;
+}
