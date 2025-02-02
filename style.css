@@ -15,10 +15,10 @@
     padding: 0;
     margin: 0 auto;
     gap: 1em;
-    width: 1100px;
-    height: 1000px;
+    width: 70vw;
+    height: 100vh;
     grid-template: repeat(9, 11.1111111%)/repeat(10, 10%);
-    top: 15em;
+    top: 10em;
 }
   
 .crossword-board__item {
@@ -60,4 +60,37 @@
 
 .animate-entrance {
     animation: entranceAnimation 0.2s ease-out;
+}
+
+.content {
+    padding: 20px;
+    background-color: #fff;
+}
+
+@keyframes blurScreen {
+    0% {
+        filter: blur(0px);
+    }
+    100% {
+        filter: blur(5px);
+    }
+}
+
+@keyframes unblurScreen {
+    0% {
+        filter: blur(5px);
+    }
+    100% {
+        filter: blur(0px);
+    }
+}
+
+.animate-blur {
+    animation: blurScreen 0.5s ease-out;
+    filter: blur(5px);
+}
+
+.animte-unblur {
+    animation: unblurScreen 0.5s ease-out;
+    filter: blur(0px);
 }
